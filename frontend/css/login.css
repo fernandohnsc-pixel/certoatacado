@@ -1,0 +1,144 @@
+:root {
+    --laranja-certo: #ff6600; /* Laranja vibrante da marca */
+    --laranja-escuro: #e65c00;
+    --cinza-texto: #444;
+    --cinza-claro: #888;
+    --branco: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Um degradê que lembra o fundo do encarte que me mandaste */
+    background: linear-gradient(135deg, var(--laranja-certo) 0%, #ff8533 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background: var(--branco);
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+/* Efeito para o quadrado parecer flutuar */
+.login-container:hover {
+    transform: translateY(-5px);
+}
+
+.logo-placeholder {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--laranja-certo);
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -1px;
+}
+
+.logo-check {
+    background: var(--laranja-certo);
+    color: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+}
+
+.subtitulo {
+    color: var(--cinza-claro);
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: var(--cinza-texto);
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--cinza-texto);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #fcfcfc;
+}
+
+input:focus {
+    border-color: var(--laranja-certo);
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(255, 102, 0, 0.1);
+}
+
+button {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--laranja-certo);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 6px 15px rgba(255, 102, 0, 0.2);
+}
+
+button:hover {
+    background-color: var(--laranja-escuro);
+    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
+    transform: scale(1.02);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#mensagem-erro {
+    color: #e74c3c;
+    background: #fdf2f2;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: none;
+    font-size: 14px;
+    border: 1px solid #fadbd8;
+}

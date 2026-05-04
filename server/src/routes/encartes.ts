@@ -7,7 +7,7 @@ const router = Router();
 // Rota de Upload de Encartes
 router.post('/', upload.single('imagem'), async (req: any, res: any) => {
   try {
-    const { titulo } = req.body;
+    const { titulo, categoria } = req.body;
     const file = req.file;
 
     if (!file) {
@@ -26,10 +26,14 @@ router.post('/', upload.single('imagem'), async (req: any, res: any) => {
       stream.end(file.buffer);
     });
 
-    // 2. Salvar no Supabase
+    // 2. Salvar no Supabase com categoria
     const { error } = await supabase
       .from('encartes')
-      .insert([{ titulo: titulo, url_imagem: result.secure_url }]);
+      .insert([{ 
+        titulo: titulo, 
+        url_imagem: result.secure_url,
+        categoria: categoria || 'Geral' 
+      }]);
 
     if (error) throw error;
 
