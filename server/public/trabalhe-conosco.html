@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe Conosco - Certo Atacado e Varejo</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .form-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                cert<span class="logo-o">o<span class="logo-check">✓</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="historia.html">Nossa História</a></li>
+                <li><a href="encartes.html">Encartes</a></li>
+                <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                <li><a href="contato.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="padding: 40px 20px;">
+            <h1>Trabalhe Conosco</h1>
+            <p>Venha fazer parte da nossa equipe!</p>
+        </section>
+
+        <section>
+            <div class="form-container">
+                <p style="margin-bottom: 25px; text-align: center;">Preencha os campos abaixo e anexe seu currículo. Entraremos em contato assim que surgir uma oportunidade!</p>
+                <form id="formRH">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Seu nome completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required placeholder="(00) 00000-0000">
+                    </div>
+                    <div class="form-group">
+                        <label for="vaga">Vaga de Interesse</label>
+                        <input type="text" id="vaga" name="vaga" placeholder="Ex: Operador de Caixa, Repositor...">
+                    </div>
+                    <div class="form-group">
+                        <label for="curriculo">Anexar Currículo (PDF)</label>
+                        <input type="file" id="curriculo" name="curriculo" accept=".pdf" required>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Candidatura</button>
+                </form>
+                <div id="msgRH" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="logo" style="color: var(--laranja-certo); margin-bottom: 20px;">
+                    cert<span class="logo-o">o<span class="logo-check">✓</span></span>
+                </a>
+                <p>O lugar certo de comprar barato. Qualidade e economia para você e sua empresa.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="historia.html">Nossa História</a></li>
+                    <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    <li><a href="contato.html">Fale Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Atendimento</h3>
+                <p><i class="fas fa-phone"></i> (00) 0000-0000</p>
+                <p><i class="fas fa-envelope"></i> contato@certoatacado.com.br</p>
+                <p><i class="fas fa-clock"></i> Seg - Sáb: 08:00 às 20:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Certo Atacado e Varejo. Todos os direitos reservados.</p>
+            <a href="login.html" class="admin-link">Acesso Restrito</a>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fale Conosco - Certo Atacado e Varejo</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contact-container { display: flex; gap: 40px; flex-wrap: wrap; }
+        .contact-info { flex: 1; min-width: 300px; }
+        .contact-form { flex: 1; min-width: 300px; background: white; padding: 30px; border-radius: 15px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                cert<span class="logo-o">o<span class="logo-check">✓</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="historia.html">Nossa História</a></li>
+                <li><a href="encartes.html">Encartes</a></li>
+                <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                <li><a href="contato.html">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" style="padding: 40px 20px;">
+            <h1>Fale Conosco</h1>
+            <p>Dúvidas, sugestões ou elogios? Estamos aqui para ouvir você.</p>
+        </section>
+
+        <section class="contact-container">
+            <div class="contact-info">
+                <div class="section-title" style="text-align: left;">
+                    <h2>Informações de Contato</h2>
+                </div>
+                <p style="margin-bottom: 30px;">Entre em contato conosco através dos nossos canais oficiais ou preencha o formulário ao lado.</p>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong><i class="fas fa-map-marker-alt" style="color: var(--laranja-certo);"></i> Endereço:</strong></p>
+                    <p>Rua Exemplo, 123 - Centro, Cidade - UF</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong><i class="fas fa-phone" style="color: var(--laranja-certo);"></i> Telefone:</strong></p>
+                    <p>(00) 0000-0000</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong><i class="fab fa-whatsapp" style="color: var(--laranja-certo);"></i> WhatsApp:</strong></p>
+                    <p>(00) 90000-0000</p>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p><strong><i class="fas fa-envelope" style="color: var(--laranja-certo);"></i> E-mail:</strong></p>
+                    <p>contato@certoatacado.com.br</p>
+                </div>
+
+                <div class="social-links" style="margin-top: 40px;">
+                    <a href="#" style="color: var(--azul-escuro);"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" style="color: var(--azul-escuro);"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <form id="formContato">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" id="assunto" name="assunto" required placeholder="Ex: Sugestão, Reclamação...">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" required placeholder="Escreva sua mensagem aqui..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                </form>
+                <div id="msgContato" style="margin-top: 15px; text-align: center; font-weight: bold;"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="logo" style="color: var(--laranja-certo); margin-bottom: 20px;">
+                    cert<span class="logo-o">o<span class="logo-check">✓</span></span>
+                </a>
+                <p>O lugar certo de comprar barato. Qualidade e economia para você e sua empresa.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="historia.html">Nossa História</a></li>
+                    <li><a href="trabalhe-conosco.html">Trabalhe Conosco</a></li>
+                    <li><a href="contato.html">Fale Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Atendimento</h3>
+                <p><i class="fas fa-phone"></i> (00) 0000-0000</p>
+                <p><i class="fas fa-envelope"></i> contato@certoatacado.com.br</p>
+                <p><i class="fas fa-clock"></i> Seg - Sáb: 08:00 às 20:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Certo Atacado e Varejo. Todos os direitos reservados.</p>
+            <a href="login.html" class="admin-link">Acesso Restrito</a>
+        </div>
+    </footer>
+
+</body>
+</html>

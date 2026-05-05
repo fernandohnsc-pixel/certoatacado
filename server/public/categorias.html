@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Categorias - Certo Atacado</title>
+    <link rel="stylesheet" href="css/painel.css">
+    <style>
+        .container { max-width: 600px; margin: 50px auto; }
+        .form-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .form-group input { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 16px; }
+        .btn-add { background: var(--laranja-certo); color: white; border: none; padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { color: var(--laranja-certo); text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f8f8; color: #666; }
+        .btn-excluir { background: #ff4d4d; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; }
+        .btn-excluir:hover { background: #ff3333; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header" style="margin-bottom: 30px;">
+        <div class="logo-certo" style="font-size: 24px; margin-bottom: 10px;">cert<span class="logo-o">o<span class="logo-check">✓</span></span></div>
+        <div class="nav-links">
+            <a href="painel.html">← Voltar ao Painel</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="margin-top: 0;">Nova Categoria</h2>
+        <div class="form-group">
+            <input type="text" id="nova-categoria" placeholder="Ex: Páscoa, Natal, Black Friday...">
+            <button id="btnCriarCat" class="btn-add">Adicionar</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 20px;">
+        <h2>Categorias Ativas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th style="text-align: center;">Ação</th>
+                </tr>
+            </thead>
+            <tbody id="listaCategorias">
+                <!-- Preenchido via JS -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    const supabaseUrl = 'https://cptrbsmzwvculwrodnnf.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNwdHJic216d3ZjdWx3cm9kbm5mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxMzIzODUsImV4cCI6MjA5MjcwODM4NX0.0EihX5uhksytuQfQKL0lzsQ3mztwhMVDP3K8UCJ1A0M'
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    const input = document.getElementById('nova-categoria');
+    const btn = document.getElementById('btnCriarCat');
+    const lista = document.getElementById('listaCategorias');
+
+    async function carregarCategorias() {
+        const { data, error } = await supabase.from('categorias').select('*').order('nome', { ascending: true });
+        if (error) return console.error(error);
+        
+        lista.innerHTML = data.map(cat => `
+            <tr>
+                <td><strong>${cat.nome}</strong></td>
+                <td style="text-align: center;">
+                    <button class="btn-excluir" onclick="deletarCat('${cat.id}')">Excluir</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    btn.onclick = async () => {
+        const nome = input.value.trim();
+        if (!nome) return;
+        const { error } = await supabase.from('categorias').insert([{ nome }]);
+        if (error) alert("Erro ao criar: " + error.message);
+        else {
+            input.value = '';
+            carregarCategorias();
+        }
+    }
+
+    window.deletarCat = async (id) => {
+        if (!confirm("Ao excluir a categoria, os encartes nela continuarão existindo, mas sem categoria definida. Confirmar?")) return;
+        const { error } = await supabase.from('categorias').delete().eq('id', id);
+        if (error) alert("Erro ao excluir: " + error.message);
+        else carregarCategorias();
+    }
+
+    carregarCategorias();
+</script>
+
+</body>
+</html>
