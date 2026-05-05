@@ -29,10 +29,10 @@ router.post('/', upload.single('imagem'), async (req: any, res: any) => {
     // 2. Salvar no Supabase com categoria
     const { error } = await supabase
       .from('encartes')
-      .insert([{ 
-        titulo: titulo, 
+      .insert([{
+        titulo: titulo,
         url_imagem: result.secure_url,
-        categoria: categoria || 'Geral' 
+        categoria: categoria || 'Geral'
       }]);
 
     if (error) throw error;
@@ -43,6 +43,22 @@ router.post('/', upload.single('imagem'), async (req: any, res: any) => {
   } catch (error) {
     console.error('❌ Erro:', error);
     res.status(500).json({ error: 'Erro interno no servidor.' });
+  }
+});
+
+// Rota para listar encartes
+router.get('/listar', async (req: Request, res: Response) => {
+  try {
+    const { data, error } = await supabase
+      .from('encartes')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (error) {
+    console.error('Erro ao buscar encartes:', error);
+    res.status(500).json({ error: 'Erro ao buscar encartes.' });
   }
 });
 

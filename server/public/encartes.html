@@ -7,13 +7,142 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .encartes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
-        .encarte-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); }
-        .encarte-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
-        .encarte-img { width: 100%; height: 350px; object-fit: cover; border-bottom: 5px solid var(--laranja-certo); }
-        .encarte-info { padding: 20px; text-align: center; }
-        .encarte-info h3 { margin-bottom: 10px; color: var(--azul-escuro); }
-        .encarte-categoria { display: inline-block; padding: 5px 15px; background: var(--laranja-certo); color: white; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 15px; }
+        .encartes-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .category-filter {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--laranja-certo);
+            background: transparent;
+            color: var(--laranja-certo);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--laranja-certo);
+            color: white;
+        }
+
+        .encartes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .encarte-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .encarte-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .encarte-img-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .encarte-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .encarte-card:hover .encarte-img {
+            transform: scale(1.05);
+        }
+
+        .encarte-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--laranja-certo);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .encarte-info {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .encarte-info h3 {
+            margin-bottom: 10px;
+            color: var(--azul-escuro);
+            font-size: 18px;
+        }
+
+        .encarte-date {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .zoom-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .zoom-overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+        }
+
+        .close-zoom {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -35,23 +164,37 @@
 
     <main>
         <section class="hero" style="padding: 40px 20px;">
-            <h1>Nossos Encartes</h1>
-            <p>Confira as ofertas imbatíveis que preparamos para você!</p>
+            <h1>Encartes de Ofertas</h1>
+            <p>Economize agora com as promoções do Certo Atacado e Varejo</p>
         </section>
 
         <section>
+            <div class="encartes-header">
+                <h2>Confira Nossas Ofertas</h2>
+                <p style="margin-bottom: 30px; color: #666;">Clique no encarte para ver em tamanho maior</p>
+                
+                <div id="filter-container" class="category-filter">
+                    <button class="filter-btn active" onclick="filterByCategory('Todas')">Todas</button>
+                    <!-- Categorias dinâmicas -->
+                </div>
+            </div>
+
             <div id="lista-encartes" class="encartes-grid">
                 <!-- Carregado via JS -->
                 <div style="grid-column: 1/-1; text-align: center; padding: 50px;">
                     <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--laranja-certo);"></i>
-                    <p style="margin-top: 15px;">Carregando ofertas...</p>
+                    <p style="margin-top: 15px;">Buscando as melhores ofertas para você...</p>
                 </div>
             </div>
         </section>
     </main>
 
+    <div id="zoomOverlay" class="zoom-overlay" onclick="closeZoom()">
+        <span class="close-zoom">&times;</span>
+        <img id="zoomImg" src="" alt="Encarte Ampliado">
+    </div>
+
     <footer>
-        <!-- Footer omitido por brevidade, mas deve ser igual aos outros -->
         <div class="footer-container">
             <div class="footer-about">
                 <a href="#" class="logo" style="color: var(--laranja-certo); margin-bottom: 20px;">
@@ -87,34 +230,89 @@
     </footer>
 
     <script type="module">
+        let todosEncartes = [];
+
         async function carregarEncartes() {
             const grid = document.getElementById('lista-encartes');
             try {
-                const response = await fetch('/upload/listar'); // Ajustar para URL de produção se necessário
-                const encartes = await response.json();
+                const response = await fetch('/upload/listar');
+                todosEncartes = await response.json();
                 
-                if (encartes.length === 0) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Nenhum encarte disponível no momento.</p>';
+                if (todosEncartes.length === 0) {
+                    grid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <i class="fas fa-tags fa-4x" style="color: #ccc; margin-bottom: 20px;"></i>
+                            <p>No momento não temos encartes ativos. Volte em breve!</p>
+                        </div>
+                    `;
                     return;
                 }
 
-                grid.innerHTML = encartes.map(e => `
-                    <div class="encarte-card">
-                        <img src="${e.imagem_url}" class="encarte-img" alt="${e.titulo}">
-                        <div class="encarte-info">
-                            <span class="encarte-categoria">${e.categoria}</span>
-                            <h3>${e.titulo}</h3>
-                            <p style="color: #666; font-size: 14px;">Publicado em: ${new Date(e.created_at).toLocaleDateString('pt-BR')}</p>
-                            <br>
-                            <a href="${e.imagem_url}" target="_blank" class="btn" style="padding: 8px 20px; font-size: 14px;">Ampliar Imagem</a>
-                        </div>
-                    </div>
-                `).join('');
+                renderEncartes(todosEncartes);
+                renderFilters(todosEncartes);
             } catch (error) {
-                console.error('Erro ao carregar encartes:', error);
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">Erro ao carregar ofertas. Tente novamente mais tarde.</p>';
+                console.error('Erro:', error);
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">Erro ao carregar ofertas. Tente novamente.</p>';
             }
         }
+
+        function renderEncartes(encartes) {
+            const grid = document.getElementById('lista-encartes');
+            grid.innerHTML = encartes.map(e => `
+                <div class="encarte-card" onclick="openZoom('${e.url_imagem}')">
+                    <div class="encarte-img-container">
+                        <span class="encarte-badge">${e.categoria || 'Ofertas'}</span>
+                        <img src="${e.url_imagem}" class="encarte-img" alt="${e.titulo}">
+                    </div>
+                    <div class="encarte-info">
+                        <h3>${e.titulo}</h3>
+                        <p class="encarte-date">Publicado em: ${new Date(e.created_at).toLocaleDateString('pt-BR')}</p>
+                        <span class="btn" style="padding: 8px 15px; font-size: 14px;">Ver em detalhes</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderFilters(encartes) {
+            const container = document.getElementById('filter-container');
+            const categorias = ['Todas', ...new Set(encartes.map(e => e.categoria))];
+            
+            container.innerHTML = categorias.map(cat => `
+                <button class="filter-btn ${cat === 'Todas' ? 'active' : ''}" onclick="filterByCategory('${cat}', this)">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        window.filterByCategory = (categoria, btn) => {
+            // Update active button
+            if (btn) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            }
+
+            if (categoria === 'Todas') {
+                renderEncartes(todosEncartes);
+            } else {
+                const filtrados = todosEncartes.filter(e => e.categoria === categoria);
+                renderEncartes(filtrados);
+            }
+        }
+
+        window.openZoom = (url) => {
+            const overlay = document.getElementById('zoomOverlay');
+            const img = document.getElementById('zoomImg');
+            img.src = url;
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        window.closeZoom = () => {
+            const overlay = document.getElementById('zoomOverlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
         carregarEncartes();
     </script>
 </body>
